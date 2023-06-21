@@ -2,14 +2,20 @@
 
 import Profile from '@components/Profile';
 import { useSession } from 'next-auth/react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from "react";
 
 
-interface UserProfileProps { };
+interface UserProfileProps { 
+  params: {
+    userId: string;
+  }
+};
 
-const UserProfile: React.FC<UserProfileProps> = () => {
-  const {data: session} = useSession();
+const UserProfile: React.FC<UserProfileProps> = ({ params }) => {
+  const { data: session } = useSession();
+  const router = useRouter();
+  
   const searchParams = useSearchParams();
   const userName = searchParams.get("name")!;
 
@@ -17,18 +23,14 @@ const UserProfile: React.FC<UserProfileProps> = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`/api/users/${session?.user?.id}/posts`);
+      const response = await fetch(`/api/users/${params.userId}/posts`);
       const data = await response.json();
 
       setUserPosts(data);
     };
-
-    if (!session?.user?.id) {
-      return;
-    }
     
     fetchPosts();
-  }, [session?.user]);
+  }, [params.userId]);
 
   return (
     <Profile

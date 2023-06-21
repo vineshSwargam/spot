@@ -8,7 +8,6 @@ interface FeedProps {}
 const Feed: React.FC<FeedProps> = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [searchText, setSearchText] = useState("");
-  const [searchTimeout, setSearchTimeout] = useState();
   const [searchedResults, setSearchedResults] = useState<Post[]>();
 
   const fetchPosts = async () => {
@@ -22,7 +21,7 @@ const Feed: React.FC<FeedProps> = () => {
   }, []);
 
   const filterPrompts = (searchtext: string): Post[] => {
-    const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
+    const regex = new RegExp(searchtext, "i");
     return posts.filter(
       (item) =>
         regex.test(item.creator.username) ||
@@ -32,7 +31,6 @@ const Feed: React.FC<FeedProps> = () => {
   };
 
   const handleSearchChange = (e: any) => {
-    // clearTimeout(searchTimeout);
     setSearchText(e.target.value);
 
     setTimeout(() => {
