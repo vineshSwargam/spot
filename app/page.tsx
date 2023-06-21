@@ -12,7 +12,7 @@ const Home: React.FC<HomeProps> = () => {
         <p className='orange_gradient text-center'>Your Music</p>
       </h1>
       <p className='desc text-center'>
-        Spot is an Open Source Music Discovery and Sharing Platform for
+        This is an Open Source Music Discovery and Sharing Platform for
         Audiophiles. Create posts showing your love for a song, singer,
         song-writer, or producer, and add links to where others can listen to
         them!
